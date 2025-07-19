@@ -1,0 +1,11 @@
+2025-07-19 13:12:59,097 - INFO - ETL Job Started
+2025-07-19 13:12:59,098 - ERROR - Error loading CSVs: [Errno 2] No such file or directory: 'input\\parking_events.csv'
+2025-07-19 13:14:14,128 - INFO - ETL Job Started
+2025-07-19 13:14:14,159 - INFO - CSV files loaded successfully.
+2025-07-19 13:14:14,160 - INFO - Validation complete. Dropped 3 invalid records.
+2025-07-19 13:14:14,203 - INFO - parking_events written to Parquet successfully.
+2025-07-19 13:14:14,206 - INFO - vehicles written to Parquet successfully.
+2025-07-19 13:14:14,212 - INFO - parking_zones written to Parquet successfully.
+2025-07-19 13:14:14,212 - INFO - ETL Job Completed Successfully
+2025-07-19 13:19:18,114 - INFO - Validation complete. Dropped 0 invalid records.
+2025-07-19 13:19:18,118 - INFO - Validation complete. Dropped 2 invalid records.
