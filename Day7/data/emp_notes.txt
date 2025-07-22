@@ -1,0 +1,3 @@
+1|Alice is leading the data engineering project.
+2|Bob is working on the analytics dashboard.
+3|Carol is managing the migration to Delta Lake.

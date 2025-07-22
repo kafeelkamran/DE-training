@@ -1,0 +1,1 @@
+Driver -> DAG(physical plan) -> Stages -> Task -> Executor -> Result it returns to the driver the result
