@@ -1,0 +1,9 @@
+id,name,age,gender,salary,salary_band,salary_rank
+7,Grace,40,F,1800,High,1
+5,Eva,29,F,1200,Medium,2
+1,Alice,29,F,1000,Low,3
+8,Alice,29,F,1000,Low,4
+2,Bob,30,M,1500,Medium,1
+6,Frank,29,M,1200,Medium,2
+4,David,32,M,0,Low,3
+3,Charlie,25,unknown,1300,Medium,1
