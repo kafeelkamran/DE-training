@@ -1,0 +1,39 @@
+Table customers {
+  id integer [primary key]
+  name varchar
+  email varchar
+  phone varchar
+  created_at timestamp
+}
+
+Table rooms {
+  id integer [primary key]
+  room_number varchar
+  room_type varchar
+  price_per_night decimal
+  status varchar [note: 'Available, Occupied, Maintenance']
+  created_at timestamp
+}
+
+Table bookings {
+  id integer [primary key]
+  customer_id integer [not null]
+  room_id integer [not null]
+  check_in date
+  check_out date
+  status varchar [note: 'Confirmed, Cancelled, Completed']
+  created_at timestamp
+}
+
+Table payments {
+  id integer [primary key]
+  booking_id integer [not null, unique]  // One-to-one relationship
+  amount decimal
+  payment_method varchar
+  payment_status varchar [note: 'Pending, Completed, Failed']
+  created_at timestamp
+}
+
+Ref customer_bookings: bookings.customer_id > customers.id // many-to-one
+Ref room_bookings: bookings.room_id > rooms.id             // many-to-one
+Ref booking_payment: payments.booking_id > bookings.id     // one-to-one
