@@ -1,0 +1,37 @@
+Table Book {
+  BookID int [pk]
+  ISBN varchar
+  Title varchar
+  Author varchar
+  Publisher varchar
+}
+
+Table BookCopy {
+  CopyID int [pk]
+  BookID int [ref: > Book.BookID]
+  Edition varchar
+  ShelfLocation varchar
+}
+
+Table Member {
+  MemberID int [pk]
+  FullName varchar
+  Email varchar
+  MembershipDate date
+}
+
+Table Librarian {
+  LibrarianID int [pk]
+  Name varchar
+  Email varchar
+  HireDate date
+}
+
+Table IssueRecord {
+  IssueID int [pk]
+  CopyID int [ref: > BookCopy.CopyID]
+  MemberID int [ref: > Member.MemberID]
+  LibrarianID int [ref: > Librarian.LibrarianID]
+  IssueDate date
+  ReturnDate date
+}

@@ -87,5 +87,7 @@ df_with_rank.write.mode("overwrite").option("header", True).csv(output_path)
 print(f"✅ DataFrame written to CSV at {output_path}")
 
 # Stop Spark
-spark.stop()
+# spark.stop()
+
+input()
 print("✅ SparkSession stopped")
