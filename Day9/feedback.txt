@@ -1,0 +1,9 @@
+Peer Review by Sudarshan Zunja
+
+- Two fact tables (sales, returns) are designed with Star Schema with multiple dimension tables. Respective primary keys are morphed 
+into relationship with dimension tables to form connectivity between schema.
+
+- SCD Type-2 is implemented using Apache Spark
+- Delta lake is used to manage read/write. 
+- Business Keys are used to join tables to detect changes and also mark those that are changed.
+- Version writing is enabled using history table for fault tolerance and is then written to delta lake.
