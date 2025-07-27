@@ -7,41 +7,42 @@ A comprehensive end-to-end data engineering project demonstrating **Data Vault 2
 ## 📁 Project Structure
 
 /ecommerce_data_vault/
-├── er_diagrams/                    # ER diagrams and SQL modeling for raw vault & star schema
-│   ├── raw_vault_erd.png          # Visual ER diagram for Raw Data Vault
-│   ├── raw_vault_erdmodel.sql     # DBML/SQL schema for Raw Vault (used in dbdiagram.io)
-│   ├── star_schema_erdmodel.sql   # DBML/SQL schema for Star Schema (used in dbdiagram.io)
-│   └── star_schema_erd.png        # Visual ER diagram for Star Schema
 
-├── delta_tables/                  # DDL scripts and lifecycle management of delta tables
-│   ├── create_tables.sql          # SQL to create all required delta tables
-│   ├── schema_evolution.sql       # Script to handle schema evolution in delta tables
-│   └── gdpr_deletion.sql          # Script for GDPR-compliant data deletion logic
+    ├── er_diagrams/                    # ER diagrams and SQL modeling for raw vault & star schema
+    │   ├── raw_vault_erd.png          # Visual ER diagram for Raw Data Vault
+    │   ├── raw_vault_erdmodel.sql     # DBML/SQL schema for Raw Vault (used in dbdiagram.io)
+    │   ├── star_schema_erdmodel.sql   # DBML/SQL schema for Star Schema (used in dbdiagram.io)
+    │   └── star_schema_erd.png        # Visual ER diagram for Star Schema
 
-├── scd_scripts/                   # Slowly Changing Dimension (SCD) and PIT/Bridge logic
-│   ├── scd_type_2_merge.sql       # Merge logic for implementing SCD Type-2
-│   ├── pit_bridge.py              # Python code for generating PIT/Bridge tables
-│   └── surrogate_key_macro.py     # Python macro or logic to generate surrogate keys
+    ├── delta_tables/                  # DDL scripts and lifecycle management of delta tables
+    │   ├── create_tables.sql          # SQL to create all required delta tables
+    │   ├── schema_evolution.sql       # Script to handle schema evolution in delta tables
+    │   └── gdpr_deletion.sql          # Script for GDPR-compliant data deletion logic
 
-├── automation/                    # Data pipeline automation scripts
-│   ├── load_pipeline.py           # ETL/ELT orchestration to load data into delta tables
-│   └── hash_key_generator.py      # Utility to generate consistent hash keys for hubs
+    ├── scd_scripts/                   # Slowly Changing Dimension (SCD) and PIT/Bridge logic
+    │   ├── scd_type_2_merge.sql       # Merge logic for implementing SCD Type-2
+    │   ├── pit_bridge.py              # Python code for generating PIT/Bridge tables
+    │   └── surrogate_key_macro.py     # Python macro or logic to generate surrogate keys
 
-├── star_schema_views/            # Star schema view creation scripts and results
-│   ├── output/star_views/        # Parquet output of star views
-│   ├── salesfact_view.sql        # SQL view logic for sales fact star schema
-│   ├── customerfact_view.sql     # SQL view logic for customer fact star schema
-│   ├── inventoryfact_view.sql    # SQL view logic for inventory fact star schema
-│   ├── run_salesfact.py          # Script to run salesfact_view.sql and save output
-│   ├── builder_star_view.py      # Script to load all star views from SQL files
-│   └── dummy_delta.py            # Script to populate dummy delta data for testing
+    ├── automation/                    # Data pipeline automation scripts
+    │   ├── load_pipeline.py           # ETL/ELT orchestration to load data into delta tables
+    │   └── hash_key_generator.py      # Utility to generate consistent hash keys for hubs
 
-├── docs/                          # Documentation related to modeling and standards
-│   ├── grain_definitions.md      # Granularity of fact tables and hub/sat definitions
-│   ├── SCD_checklist.md          # Checklist and best practices for implementing SCD
-│   └── peer_review_notes.md      # Notes and checklist for peer review of data models
+    ├── star_schema_views/            # Star schema view creation scripts and results
+    │   ├── output/star_views/        # Parquet output of star views
+    │   ├── salesfact_view.sql        # SQL view logic for sales fact star schema
+    │   ├── customerfact_view.sql     # SQL view logic for customer fact star schema
+    │   ├── inventoryfact_view.sql    # SQL view logic for inventory fact star schema
+    │   ├── run_salesfact.py          # Script to run salesfact_view.sql and save output
+    │   ├── builder_star_view.py      # Script to load all star views from SQL files
+    │   └── dummy_delta.py            # Script to populate dummy delta data for testing
 
-└── .git/                          # Git metadata folder for version control
+    ├── docs/                          # Documentation related to modeling and standards
+    │   ├── grain_definitions.md      # Granularity of fact tables and hub/sat definitions
+    │   ├── SCD_checklist.md          # Checklist and best practices for implementing SCD
+    │   └── peer_review_notes.md      # Notes and checklist for peer review of data models
+
+    └── .git/                          # Git metadata folder for version control
 
 
 
@@ -100,33 +101,33 @@ python builder_star_view.py
 
     star_schema_erd.png: Star schema view model
 
-Use raw_vault_erdmodel.sql and star_schema_erdmodel.sql in dbdiagram.io
+    Use raw_vault_erdmodel.sql and star_schema_erdmodel.sql in dbdiagram.io
 
-🧪 How to Run
-Run dummy_delta.py to create test delta tables.
+### 🧪 How to Run
+    Run dummy_delta.py to create test delta tables.
 
-Run builder_star_view.py to create star views and save as Parquet.
+    Run builder_star_view.py to create star views and save as Parquet.
 
-View output at /star_schema_views/output/star_views/.
+    View output at /star_schema_views/output/star_views/.
 
-✅ Prerequisites
-Python 3.10+
+### ✅ Prerequisites
+    Python 3.10+
 
-Apache Spark 3.x with Delta Lake enabled
+    Apache Spark 3.x with Delta Lake enabled
 
-PySpark
+    PySpark
 
-Delta Lake JARs (io.delta:delta-core_2.12:2.4.0)
+    Delta Lake JARs (io.delta:delta-core_2.12:2.4.0)
 
-Pandas (for automation scripts)
+    Pandas (for automation scripts)
 
-🔍 Future Enhancements
-Add Link tables and bridge joins for complex facts
+### 🔍 Future Enhancements
+    Add Link tables and bridge joins for complex facts
 
-Add real ingestion pipelines using Kafka/Structured Streaming
+    Add real ingestion pipelines using Kafka/Structured Streaming
 
-Add Power BI/Looker dashboards on top of star views
+    Add Power BI/Looker dashboards on top of star views
 
-👤 Author
-Kafeel Kamran Ahmed
+### 👤 Author
+    Kafeel Kamran Ahmed
 
