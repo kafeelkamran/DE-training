@@ -14,6 +14,9 @@ run zookeeper - bin/zookeeper-server-start.sh config/zookeeper.properties
 scp -i C:\Users\kafeel.kamran\Downloads\asd.pem C:\Users\kafeel.kamran\Downloads\hw_200.csv kafeel@130.131.59.101:/home/kafeel/nifi_data/input/
 hw_200.csv
 
+scp -i C:\Users\kafeel.kamran\Downloads\asd.pem C:\Users\kafeel.kamran\Downloads\sales.csv kafeel@130.131.59.101:/home/kafeel/nifi_data/input/
+sales.csv
+
 create topic:
 bin/kafka-topics.sh --create --topic txn --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
 
