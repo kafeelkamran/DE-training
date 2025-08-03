@@ -1,0 +1,25 @@
+sudo ufw enable
+sudo ufw allow 22 (allow ssh)
+sudo ufw allow 8080
+sudo ufw reload
+
+/usr/lib/jvm/java-17-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+~/nifi/bin/nifi.sh start
+~/nifi/bin/nifi.sh status
+
+run kafka - bin/kafka-server-start.sh config/server.properties
+run zookeeper - bin/zookeeper-server-start.sh config/zookeeper.properties
+
+scp -i C:\Users\kafeel.kamran\Downloads\asd.pem C:\Users\kafeel.kamran\Downloads\hw_200.csv kafeel@130.131.59.101:/home/kafeel/nifi_data/input/
+hw_200.csv
+
+create topic:
+bin/kafka-topics.sh --create --topic txn --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+
+list topics:
+bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+
+describe topic:
+bin/kafka-topics.sh --describe --topic txn --bootstrap-server localhost:9092
+
