@@ -1,0 +1,112 @@
+# the below yml file is used to trigger adf pipeline when code is pushed or pr to repo
+
+name: Run ADF Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  trigger-adf:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Start ADF Pipeline
+      id: start
+      run: |
+        RUN_ID=$(az datafactory pipeline-run create \
+          --factory-name "${{ secrets.ADF_NAME }}" \
+          --resource-group "${{ secrets.ADF_RG }}" \
+          --name "${{ secrets.ADF_PIPELINE_NAME }}" \
+          --query "runId" -o tsv)
+
+        echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
+        echo "Started pipeline with run ID: $RUN_ID"
+
+    - name: Wait for Completion
+      run: |
+        STATUS="InProgress"
+        while [[ "$STATUS" == "InProgress" || "$STATUS" == "Queued" ]]; do
+          STATUS=$(az datafactory pipeline-run show \
+            --factory-name "${{ secrets.ADF_NAME }}" \
+            --resource-group "${{ secrets.ADF_RG }}" \
+            --run-id "${{ steps.start.outputs.run_id }}" \
+            --query "status" -o tsv)
+
+          echo "Current status: $STATUS"
+          sleep 30
+        done
+
+        if [[ "$STATUS" != "Succeeded" ]]; then
+          echo "Pipeline failed with status: $STATUS"
+          exit 1
+        fi
+
+        echo "Pipeline succeeded!"
+
+
+
+
+
+
+
+
+# the below yml file is used to trigger data bricks job when code is pushed or pr to repo
+
+# name: Run Databricks Job
+
+# on:
+#   push:
+#     branches: [master]
+
+# jobs:
+#   run-databricks-job:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Install Databricks CLI v1.x
+#         run: |
+#           pip install databricks-cli --upgrade
+
+#       - name: Configure Databricks CLI
+#         run: |
+#           databricks configure --token <<EOF
+#           ${{ secrets.DATABRICKS_HOST }}
+#           ${{ secrets.DATABRICKS_TOKEN }}
+#           EOF
+
+#       - name: Trigger Databricks Job
+#         run: |
+#           RUN_ID=$(databricks jobs run-now --job-id ${{ secrets.DATABRICKS_JOB_ID }} | jq -r '.run_id')
+#           echo "Triggered run ID: $RUN_ID"
+
+#           # Wait until the job finishes
+#           while true; do
+#             STATE=$(databricks runs get --run-id $RUN_ID | jq -r '.state.life_cycle_state')
+#             RESULT=$(databricks runs get --run-id $RUN_ID | jq -r '.state.result_state')
+#             echo "Job state: $STATE"
+#             if [ "$STATE" == "TERMINATED" ]; then
+#               echo "Job finished with result: $RESULT"
+#               if [ "$RESULT" != "SUCCESS" ]; then exit 1; fi
+#               break
+#             fi
+#             sleep 20
+#           done
+
+#       - name: Download Deequ Report from DBFS
+#         run: |
+#           databricks fs cp -r dbfs:/FileStore/shared_uploads/traininguser4@sudosu.ai/dq_results./dq_results
+
+#       - name: Upload Report as Artifact
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: dq-results
+#           path: ./dq_results
